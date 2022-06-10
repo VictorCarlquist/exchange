@@ -5,6 +5,8 @@
 Desafio BR MED
 ---
 
+Link: [https://exchange-brl.herokuapp.com/](https://exchange-brl.herokuapp.com/)
+
 Este projeto é um site que mostra a cotação do dolar vs real, euro e iene(JPY), sendo apenas uma demonstração.
 
 Os dados são fornecidos pela API  [vatcomply](https://www.vatcomply.com/documentation).
