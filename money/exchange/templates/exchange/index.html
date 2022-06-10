@@ -1,0 +1,123 @@
+{% extends 'exchange/base.html' %}
+
+{% block scripts %}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {% endblock %}
+
+{% block content %}
+<div class="row">
+    <form class="row gx-3 gy-2 align-items-center">
+        <div class="col-sm-3">
+            <label for="date_start">Data Inicial</label>
+            <input type="date" class="form-control" id="date_start" name="date_start">
+        </div>
+        <div class="col-sm-3">
+            <labelfor="date_end">Data Final</label>
+            <div class="input-group">
+            <input type="date" class="form-control" id="date_end" name="date_end">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label for="currency">Moeda</label>
+            <select class="form-select" id="currency" name="currency">
+            {% for c in currencies %}
+                <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+  </form>
+</div>
+<hr>
+<div class="row">
+    <figure class="highcharts-figure">
+        <div id="chart-rate"></div>
+    </figure>
+</div>
+
+<script>
+
+var chart_rate;
+function chart(params) {
+    console.log(params);
+    var url="http://localhost:8000/rate/";
+
+    $.getJSON(url, params,
+        function(data) {
+            var options={
+                chart: {
+                     renderTo: 'chart-rate',
+                     type: 'line',
+                     title: "Cotação USD x "
+                },
+                xAxis:{
+                    type: "datetime",
+                    labels: {
+                        formatter: function() {
+                            return Highcharts.dateFormat('%d/%m/%Y', this.value);
+                        }
+                    }
+                },
+                yAxis: {
+                     title: { text: 'test'}
+                }, 
+                series:[{
+                    data: data,
+                    name: "cotação"
+                }]
+            };
+            if (!chart_rate)
+                chart_rate = new Highcharts.Chart(options);
+            else {
+                chart_rate.series[0].setData(data);
+            }
+            chart_rate.setTitle({text: "USD X " + params[2].value});
+
+       }
+    ).fail(
+        function(xhr, textStatus, errorThrown){
+            console.log(xhr.responseText);
+            swal("Erro", xhr.responseText, "error");
+        }
+    );
+}
+
+$("form").submit(function( event ) {
+    chart($(this).serializeArray());
+    event.preventDefault();
+});
+
+$(document).ready(function() {
+    let today = new Date();
+    let fivedays = new Date();
+    fivedays.setDate(today.getDate() - 5);
+    fivedays = fivedays.toISOString().substring(0, 10);
+    today = today.toISOString().substring(0, 10);
+    params = [
+        {
+            "name": "date_start",
+            "value": fivedays
+        },
+        {
+            "name": "date_end",
+            "value": today
+        },
+        {
+            "name": "currency",
+            "value": "BRL"
+        },
+    ];
+    $("#date_start").val(fivedays);
+    $("#date_end").val(today);
+
+    chart(params);
+});
+</script>
+{% endblock %}
