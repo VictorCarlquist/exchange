@@ -1,0 +1,31 @@
+[
+    {
+      "model": "exchange.CurrencyModel",
+      "pk": 1,
+      "fields": {
+          "currency_code": "USD"
+      }
+    },
+    {
+        "model": "exchange.CurrencyModel",
+        "pk": 2,
+        "fields": {
+            "currency_code": "BRL"
+        }
+    },
+    {
+        "model": "exchange.CurrencyModel",
+        "pk": 3,
+        "fields": {
+            "currency_code": "EUR"
+        }
+    },
+    {
+        "model": "exchange.CurrencyModel",
+        "pk": 4,
+        "fields": {
+            "currency_code": "JPY"
+        }
+    }
+]
+  
