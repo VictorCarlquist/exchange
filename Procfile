@@ -1,1 +1,1 @@
-web: gunicorn money.wsgi
+web: gunicorn --pythonpath money money.wsgi
