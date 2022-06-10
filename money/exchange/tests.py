@@ -1,4 +1,5 @@
 import datetime
+from unittest import expectedFailure
 
 from django.test import TestCase
 
@@ -18,20 +19,17 @@ class AnimalTestCase(TestCase):
 
     def test_get_data(self):
         start = date(2020, 4, 4)
-        end = date(2020, 4, 9)
+        end = date(2020, 4, 8)
         rate = RateUseCase(start, end, "BRL")
         rate.execute()
     
-
+    @expectedFailure
     def test_date_five_days(self):
         start = date(2020, 4, 4)
-        end = date(2020, 4, 10)
+        end = date(2020, 4, 9)
         rate = RateUseCase(start, end, "BRL")
-        try:
-            rate.execute()
-        except Exception as e:
-            self.assertEqual(str(e), "O intervalo de dias não deve ser maior que 5 dias")
-
+        rate.execute()
+        
 
     def test_date_start_less_end(self):
         start = date(2020, 4, 4)
@@ -45,7 +43,7 @@ class AnimalTestCase(TestCase):
 
     def test_invalid_currency(self):
         start = date(2020, 4, 4)
-        end = date(2020, 4, 9)
+        end = date(2020, 4, 8)
         rate = RateUseCase(start, end, "AAA")
         try:
             rate.execute()

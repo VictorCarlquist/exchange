@@ -89,7 +89,8 @@ class RateUseCase:
         if self.date_start > self.date_end:
             raise Exception("Data Inicial é maior que Data Final")
 
-        total_days = (self.date_end - self.date_start).days
+        total_days = (self.date_end - self.date_start).days + 1
+
         if total_days > days:
             raise Exception(f"O intervalo de dias não deve ser maior que {days} dias")
         
