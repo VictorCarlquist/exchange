@@ -63,6 +63,7 @@ wcwidth==0.2.5
 wheel==0.37.1
     # via pip-tools
 gunicorn
+django_heroku
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
