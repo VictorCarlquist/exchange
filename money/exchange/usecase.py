@@ -62,7 +62,7 @@ class RateUseCase:
         # Se a condicao for falsa, entao nao temos todos os registros
         # no banco.
         if len(qs) == total_days:
-            return qs.values_list("date", "value")
+            return qs.order_by("date").values_list("date", "value")
 
         # Vamos pegar apenas as datas que o banco nao possui.
         dates_found = qs.values_list('date', flat=True)
@@ -82,7 +82,7 @@ class RateUseCase:
         )
 
         qs = qs | qs_new_date
-        return qs.values_list("date", "value")
+        return qs.order_by("date").values_list("date", "value")
 
     def execute(self):
         days = 5
