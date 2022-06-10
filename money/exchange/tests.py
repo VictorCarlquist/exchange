@@ -25,8 +25,8 @@ class AnimalTestCase(TestCase):
     
     @expectedFailure
     def test_date_five_days(self):
-        start = date(2020, 4, 4)
-        end = date(2020, 4, 9)
+        start = date(2022, 5, 30)
+        end = date(2022, 6, 6)
         rate = RateUseCase(start, end, "BRL")
         rate.execute()
         

@@ -85,14 +85,16 @@ class RateUseCase:
         return qs.order_by("date").values_list("date", "value")
 
     def execute(self):
-        days = 5
+        max_business_days = 5
         if self.date_start > self.date_end:
             raise Exception("Data Inicial é maior que Data Final")
 
+        # Calcula a quantidade de dias uteis.
         total_days = (self.date_end - self.date_start).days + 1
+        total_days = len(self._rangedates(total_days))
 
-        if total_days > days:
-            raise Exception(f"O intervalo de dias não deve ser maior que {days} dias")
+        if total_days > max_business_days:
+            raise Exception(f"O intervalo de dias não deve ser maior que {max_business_days} dias úteis")
         
         if self.date_end > datetime.date.today():
             raise Exception("A data final deve ser menor ou igual que a data de hoje")
