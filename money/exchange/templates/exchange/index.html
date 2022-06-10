@@ -97,7 +97,7 @@ $("form").submit(function( event ) {
 $(document).ready(function() {
     let today = new Date();
     let fivedays = new Date();
-    fivedays.setDate(today.getDate() - 5);
+    fivedays.setDate(today.getDate() - 4);
     fivedays = fivedays.toISOString().substring(0, 10);
     today = today.toISOString().substring(0, 10);
     params = [
