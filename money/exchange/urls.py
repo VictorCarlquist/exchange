@@ -19,5 +19,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
-    path('rate/', view=views.get_exchange_value)
+    path('rate/', view=views.get_exchange_value, name="rate")
 ]

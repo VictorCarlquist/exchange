@@ -47,7 +47,7 @@
 var chart_rate;
 function chart(params) {
     console.log(params);
-    var url="http://localhost:8000/rate/";
+    var url="{% url 'rate' %}";
 
     $.getJSON(url, params,
         function(data) {
