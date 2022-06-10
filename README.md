@@ -1,3 +1,5 @@
+![example workflow](https://github.com/VictorCarlquist/exchange/actions/workflows/django.yml/badge.svg)
+
 # Exchange $
 
 Desafio BR MED
