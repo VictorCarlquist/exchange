@@ -27,4 +27,4 @@ jobs:
         pip install -r req/dev.txt
     - name: Run Tests
       run: |
-        python money/manage.py test
+        python money/manage.py test money/
